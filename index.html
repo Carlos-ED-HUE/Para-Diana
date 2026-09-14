@@ -49,7 +49,6 @@
         #canvas1 { z-index: 0; }
         #canvas2 { z-index: 20; }
 
-        /* --- ESTILOS PARA LOS EMOJIS FLOTANTES --- */
         .floating-item {
             position: fixed;
             font-size: 24px;
@@ -199,28 +198,29 @@
             bottom: 152px;
             left: 50%;
             transform: translateX(-50%);
-            width: 22px;
-            height: 32px;
-            background: radial-gradient(ellipse at bottom, rgba(255, 255, 180, 1) 0%, rgba(255, 200, 0, 0.9) 50%, rgba(255, 120, 0, 0.6) 80%, transparent 100%);
-            border-radius: 50%;
-            animation: flama 0.15s infinite alternate ease-in-out;
+            width: 24px;
+            height: 36px;
+            background: radial-gradient(ellipse at bottom, #ffffff 0%, #ffeb3b 40%, #ff5722 80%, rgba(255, 87, 34, 0) 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 15px #ffeb3b, 0 0 30px #ff9800, 0 0 50px #ff5722;
+            animation: flama 0.12s infinite alternate ease-in-out;
             cursor: pointer;
             z-index: 100000;
         }
 
         @keyframes flama {
-            from { transform: translateX(-50%) scale(1); }
-            to { transform: translateX(-50%) scale(1.1); }
+            from { transform: translateX(-50%) scale(1) rotate(-2deg); }
+            to { transform: translateX(-50%) scale(1.12) rotate(2deg); }
         }
 
         @keyframes apagar {
-            to { transform: translateX(-50%) scale(0); opacity: 0; }
+            to { transform: translateX(-50%) scale(0); opacity: 0; box-shadow: none; }
         }
 
         .overlay {
             position: fixed;
             inset: 0;
-            background-color: rgba(0, 0, 0, 0.95);
+            background: radial-gradient(circle at 50% 60%, rgba(255, 170, 60, 0.25) 0%, rgba(15, 8, 25, 0.92) 50%, rgba(5, 2, 10, 0.98) 100%);
             z-index: 99999;
             transition: opacity 1s ease;
             pointer-events: none;
@@ -409,7 +409,6 @@
     <script>
         window.oncontextmenu = () => false;
 
-        // Confeti Fondo
         const canvas1 = document.getElementById("canvas1");
         const ctx1 = canvas1.getContext("2d");
         let w = canvas1.width = window.innerWidth;
@@ -436,38 +435,25 @@
         }
         animar();
 
-        // --- LÓGICA DE EMOJIS FLOTANTES ---
         const emojis = ['🎈', '❤️', '💖', '✨', '🎉'];
 
         function createFloatingItem() {
             const item = document.createElement('div');
             item.classList.add('floating-item');
-            
-            // Asignar un emoji al azar
             item.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-            
-            // Posición aleatoria a lo ancho de la pantalla
             item.style.left = Math.random() * window.innerWidth + 'px';
-            
-            // Tamaño aleatorio para darle profundidad
             item.style.fontSize = (Math.random() * 16 + 20) + 'px';
-            
-            // Duración y velocidad de subida aleatoria
             const duration = Math.random() * 3 + 3; 
             item.style.animationDuration = duration + 's';
-            
             document.body.appendChild(item);
 
-            // Eliminar del DOM cuando termine la animación
             setTimeout(() => {
                 item.remove();
             }, duration * 1000);
         }
 
-        // Generar un nuevo emoji flotante cada 400 milisegundos
         setInterval(createFloatingItem, 400);
 
-        // Apagar vela y mostrar contenido
         const llama = document.getElementById("llama");
         const overlay = document.getElementById("overlay");
         const soplido = document.getElementById("soplido");
@@ -483,7 +469,6 @@
             }, 600);
         });
 
-        // Carta
         const cajaRegalo = document.getElementById("cajaRegalo");
         const modalCarta = document.getElementById("modalCarta");
 
